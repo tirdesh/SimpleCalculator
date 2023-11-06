@@ -18,11 +18,21 @@ const buttons = [
 let expression = "";
 
 function drawButton(x, y, text, width = buttonWidth) {
-    ctx.fillStyle = "#f0f0f0";
+    ctx.fillStyle = "black";
+    if (x >= 4 * buttonWidth) {
+        ctx.fillStyle = "#ff9e0b";
+    }
+    else if(y===80){
+        ctx.fillStyle = "#5f6065";
+    }
+    else{
+        ctx.fillStyle = "#777a7e";
+    }
     ctx.fillRect(x, y, width, buttonHeight);
     ctx.fillStyle = "#000";
     ctx.font = "24px Arial";
-    
+
+
     // Calculate the text width for centering
     const textWidth = ctx.measureText(text).width;
 
