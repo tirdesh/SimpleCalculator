@@ -71,17 +71,32 @@ function draw() {
 }
 
 function draw_output() {
-    ctx.fillStyle = "#f0f0f0";
+    ctx.fillStyle = "#4d5052";
     ctx.fillRect(0, 0, canvas.width, 80);
     ctx.fillStyle = "#000";
     ctx.font = "36px Arial";
-    ctx.fillText(expression, 20, 50);
+    a=20;
+    b=50;
+    if (expression.includes("\n")){
+        b=30;
+        ctx.font = "24px Arial";
+    }
+    const lines = expression.split("\n");
+    
+    for (let i = 0; i < lines.length; i++) {
+        if (i==1){
+            ctx.font = "36px Arial";
+        }
+        ctx.fillText(lines[i], a, b + i * 40); // Adjust the vertical position as needed
+    }
 }
 
 canvas.addEventListener("click", (event) => {
     const x = event.clientX - canvas.getBoundingClientRect().left;
     const y = event.clientY - canvas.getBoundingClientRect().top;
-
+    if (expression.includes("\n")) {
+        expression = expression.split("\n").slice(-1)[0];
+    }    
     if (y >= 80) {
         const row = Math.floor((y - 80) / buttonHeight);
         const col = Math.floor(x / buttonWidth);
@@ -120,9 +135,9 @@ canvas.addEventListener("click", (event) => {
 
 function evalExpression() {
     try {
-        let exp = expression.replace("x", "*");
+        let exp = expression.replace("X", "*");
         const result = eval(exp);
-        expression = result.toString();
+        expression = expression+ "\n" + result.toString();
     } catch (error) {
         expression = "Invalid Expression";
     }
