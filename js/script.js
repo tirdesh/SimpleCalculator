@@ -1,6 +1,5 @@
 const canvas = document.getElementById("calculator");
 const ctx = canvas.getContext("2d");
-
 const buttonWidth = 80;
 const buttonHeight = 80;
 
@@ -29,7 +28,7 @@ function drawButton(x, y, text, width = buttonWidth) {
         ctx.fillStyle = "#777a7e";
     }
     ctx.fillRect(x, y, width, buttonHeight);
-    ctx.fillStyle = "#000";
+    ctx.fillStyle = "#fff";
     ctx.font = "24px Arial";
 
 
@@ -73,7 +72,7 @@ function draw() {
 function draw_output() {
     ctx.fillStyle = "#4d5052";
     ctx.fillRect(0, 0, canvas.width, 80);
-    ctx.fillStyle = "#000";
+    ctx.fillStyle = "#fff"; // Set text color to white
     ctx.font = "36px Arial";
     ctx.textAlign = "right"; // Set text alignment to right
     let a = canvas.width - 20;
