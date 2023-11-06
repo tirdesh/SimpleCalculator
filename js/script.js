@@ -75,8 +75,9 @@ function draw_output() {
     ctx.fillRect(0, 0, canvas.width, 80);
     ctx.fillStyle = "#000";
     ctx.font = "36px Arial";
-    a=20;
-    b=50;
+    ctx.textAlign = "right"; // Set text alignment to right
+    let a = canvas.width - 20;
+    let b=50;
     if (expression.includes("\n")){
         b=30;
         ctx.font = "24px Arial";
@@ -89,6 +90,7 @@ function draw_output() {
         }
         ctx.fillText(lines[i], a, b + i * 40); // Adjust the vertical position as needed
     }
+    ctx.textAlign = "left";
 }
 
 canvas.addEventListener("click", (event) => {
