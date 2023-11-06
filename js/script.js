@@ -9,7 +9,7 @@ canvas.height = 5 * buttonHeight + 80;
 
 const buttons = [
     "", "", "", "%", "/", 
-    "(", "7", "8", "9", "*",
+    "(", "7", "8", "9", "X",
     ")", "4", "5", "6", "-",
     "Back", "1", "2", "3", "+",
     "0", ".", "=",
@@ -57,7 +57,10 @@ function draw() {
         }
         drawButton(x, y, buttons[i], adjustedButtonWidth);
     }
+    draw_output();
+}
 
+function draw_output() {
     ctx.fillStyle = "#f0f0f0";
     ctx.fillRect(0, 0, canvas.width, 80);
     ctx.fillStyle = "#000";
@@ -70,16 +73,38 @@ canvas.addEventListener("click", (event) => {
     const y = event.clientY - canvas.getBoundingClientRect().top;
 
     if (y >= 80) {
-        const buttonIndex = Math.floor(x / buttonWidth) + Math.floor((y - 80) / buttonHeight) * 5;
-        const buttonText = buttons[buttonIndex];
+        const row = Math.floor((y - 80) / buttonHeight);
+        const col = Math.floor(x / buttonWidth);
+
+        let buttonText = "";
+        
+        if (row === 4) {
+            if (col < 3) {
+                buttonText = "0";
+            } else if (col === 3) {
+                buttonText = ".";
+            } else if (col === 4) {
+                buttonText = "=";
+            }
+        } else {
+            buttonText = buttons[row * 5 + col];
+        }
+
         if (buttonText === "=") {
             evalExpression();
-        } else if (buttonText === "Back") {
-            expression = expression.slice(0, -1);
-        } else {
+        } 
+        else if (buttonText === "Back") {
+            if (expression.includes("Invalid Expression")){
+                expression = "";
+            }
+            else{
+                expression = expression.slice(0, -1);
+            }
+        } 
+        else {
             expression += buttonText;
         }
-        draw();
+        draw_output();
     }
 });
 
@@ -91,7 +116,7 @@ function evalExpression() {
     } catch (error) {
         expression = "Invalid Expression";
     }
-    draw();
+    draw_output();
 }
 
 draw();
