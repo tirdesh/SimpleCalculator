@@ -185,10 +185,91 @@ canvas.addEventListener("click", (event) => {
     }
 });
 
+function evaluateExpression(expression) {
+    const operators = [];
+    const values = [];
+
+    const precedence = {
+        "+": 1,
+        "-": 1,
+        "*": 2,
+        "/": 2,
+        "%": 2,
+    };
+
+    function applyOperator() {
+        const operator = operators.pop();
+        const right = values.pop();
+        const left = values.pop();
+        values.push(performOperation(left, operator, right));
+    }
+
+    function performOperation(left, operator, right) {
+        switch (operator) {
+            case "+":
+                return left + right;
+            case "-":
+                return left - right;
+            case "*":
+                return left * right;
+            case "/":
+                if (right === 0) {
+                    throw new Error("Division by zero");
+                }
+                return left / right;
+            case "%":
+                if (right === 0) {
+                    throw new Error("Modulo by zero");
+                }
+                return left % right;
+            default:
+                return null;
+        }
+    }
+
+    for (const token of expression.match(/(\d+(\.\d+)?)|([\+\-\*\/%()])/g)) {
+        if (/(\d+(\.\d+)?)/.test(token)) {
+            values.push(parseFloat(token));
+        } else if (token in precedence) {
+            const currentPrecedence = precedence[token];
+            while (
+                operators.length > 0 &&
+                operators[operators.length - 1] !== "(" &&
+                precedence[operators[operators.length - 1]] >= currentPrecedence
+            ) {
+                applyOperator();
+            }
+            operators.push(token);
+        } else if (token === "(") {
+            operators.push(token);
+        } else if (token === ")") {
+            while (operators.length > 0 && operators[operators.length - 1] !== "(") {
+                applyOperator();
+            }
+            if (operators.length === 0 || operators[operators.length - 1] !== "(") {
+                throw new Error("Unmatched parentheses");
+            }
+            operators.pop(); // Remove the "("
+        }
+    }
+
+    while (operators.length > 0) {
+        applyOperator();
+    }
+
+    if (values.length !== 1 || typeof values[0] !== "number") {
+        throw new Error("Invalid Expression");
+    }
+
+    return values[0];
+}
+
+
+
 // Function to evaluate the expression
 function evalExpression() {
     try {
-        const result = eval(expression);
+        const result = evaluateExpression(expression);
         expression = expression + "\n" + result.toString();
     } catch (error) {
         expression = "Invalid Expression";
