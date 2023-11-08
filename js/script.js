@@ -48,7 +48,7 @@ function drawButton(x, y, text, width = buttonWidth) {
     ctx.fillStyle = "#fff";
 
     // Set the font for button text
-    ctx.font = "24px Arial";
+    ctx.font = "bold 24px Arial";
 
     // Calculate the text width for centering
     const textWidth = ctx.measureText(text).width;
@@ -56,7 +56,7 @@ function drawButton(x, y, text, width = buttonWidth) {
     // Calculate the text position for horizontal centering
     const textX = x + (width - textWidth) / 2;
     // Calculate the text position for vertical centering
-    const textY = y + buttonHeight / 1.5 + 6;
+    const textY = y + (buttonHeight + 24) / 2;
 
     // Draw the button text
     ctx.fillText(text, textX, textY);
@@ -132,7 +132,7 @@ function draw_output() {
 
     // Adjust font and position if expression contains multiple lines
     if (expression.includes("\n")){
-        b = 60;
+        b = topPart - 60;
         ctx.font = "24px Arial";
     }
 
@@ -145,7 +145,7 @@ function draw_output() {
         }
 
         // Draw each line of the expression
-        ctx.fillText(lines[i], a, b + i * 50);
+        ctx.fillText(lines[i], a, b + i * (topPart - 70));
     }
 
     // Reset text alignment
