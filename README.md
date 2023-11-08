@@ -33,4 +33,4 @@ Build an expression calculator using HTML Canvas following the mock image provid
 3. As this assignment is made mostly by using html and js no additional packages are required.
 
 # Final Output(How the page looks)
-<img width="414" alt="image" src="https://github.com/info-6150-fall-2023/assignment-7-tirdesh-neu/assets/145165383/201a9f5a-90c1-4660-ba5f-aa35d6af55f9">
+<img width="414" alt="image" src="https://github.com/info-6150-fall-2023/assignment-7-tirdesh-neu/assets/145165383/56b48112-00cf-4924-93b1-bbd90a095306">
