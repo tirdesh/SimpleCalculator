@@ -5,10 +5,11 @@ const ctx = canvas.getContext("2d");
 // Define button dimensions
 const buttonWidth = 80;
 const buttonHeight = 80;
+const topPart = 120;
 
 // Set the canvas width and height based on the button layout
 canvas.width = 5 * buttonWidth;
-canvas.height = 5 * buttonHeight + 80;
+canvas.height = 5 * buttonHeight + topPart;
 
 // Define the text for buttons
 const buttons = [
@@ -69,7 +70,7 @@ function draw() {
         const row = Math.floor(i / 5);
         const col = i % 5;
         let x = col * buttonWidth;
-        let y = 80 + row * buttonHeight;
+        let y = topPart + row * buttonHeight;
 
         let adjustedButtonWidth = buttonWidth;
 
@@ -94,7 +95,27 @@ function draw() {
 // Function to draw the expression output
 function draw_output() {
     ctx.fillStyle = "#4d5052"; // Set the background color
-    ctx.fillRect(0, 0, canvas.width, 80);
+    ctx.fillRect(0, 0, canvas.width, topPart);
+
+    // Define the radius and position of the circles
+    const radius = 10;
+    const circleY = 20;
+    const spacing = 20;
+    // Draw three small circles at the beginning
+    ctx.fillStyle = "#ff5f58"; // Set the circle color to red
+    ctx.beginPath();    
+    ctx.arc(spacing, circleY, radius, 0, Math.PI * 2); // Draw the first circle
+    ctx.closePath();
+    ctx.fill(); // Fill the circles with the set color
+    ctx.fillStyle = "#febc2e"; // Set the circle color to yellow
+    ctx.beginPath();    
+    ctx.arc(spacing + 2 * (radius + 5), circleY, radius, 0, Math.PI * 2); // Draw the second circle
+    ctx.closePath();
+    ctx.fill(); // Fill the circles with the set color
+    ctx.fillStyle = "#2ac83e"; // Set the circle color to green
+    ctx.beginPath();
+    ctx.arc(spacing + 4 * (radius + 5), circleY, radius, 0, Math.PI * 2); // Draw the third circle
+    ctx.fill(); // Fill the circles with the set color
 
     // Set the text color to white
     ctx.fillStyle = "#fff";
@@ -107,11 +128,11 @@ function draw_output() {
 
     // Calculate the starting position for text
     let a = canvas.width - 20;
-    let b = 50;
+    let b = topPart - 30;
 
     // Adjust font and position if expression contains multiple lines
     if (expression.includes("\n")){
-        b = 30;
+        b = 60;
         ctx.font = "24px Arial";
     }
 
@@ -124,7 +145,7 @@ function draw_output() {
         }
 
         // Draw each line of the expression
-        ctx.fillText(lines[i], a, b + i * 40);
+        ctx.fillText(lines[i], a, b + i * 50);
     }
 
     // Reset text alignment
@@ -143,8 +164,8 @@ canvas.addEventListener("click", (event) => {
         expression = "";
     }
 
-    if (y >= 80) {
-        const row = Math.floor((y - 80) / buttonHeight);
+    if (y >= topPart) {
+        const row = Math.floor((y - topPart) / buttonHeight);
         const col = Math.floor(x / buttonWidth);
 
         let buttonText = "";
@@ -270,7 +291,11 @@ function evaluateExpression(expression) {
 function evalExpression() {
     try {
         const result = evaluateExpression(expression);
-        expression = expression + "\n" + result.toString();
+                if (isNaN(result)) {
+            expression = "Invalid Expression";
+        } else {
+            expression = expression + "\n" + result.toString();
+        }
     } catch (error) {
         expression = "Invalid Expression";
     }
