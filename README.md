@@ -1,5 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/Snzl21PZ)
-# Assignment Description
 ## **Simple Calculator**
 Build an expression calculator using HTML Canvas following the mock image provided.
 
@@ -19,7 +17,7 @@ Build an expression calculator using HTML Canvas following the mock image provid
 7. The readMe.md file should have a markdown with the project description and instructions to run the project.
 
 ### **Mock Image:**
-![image](https://github.com/info-6150-fall-2023/assignment-7-tirdesh-neu/assets/145165383/8ce42ad5-4f4a-4789-9e3a-bb0e0be02904)
+![image](https://github.com/tirdesh/SimpleCalculator/assets/71664201/6d556799-74bd-47e5-acf3-9cb5ff462adc)
 
 
 # Work Done
@@ -33,4 +31,4 @@ Build an expression calculator using HTML Canvas following the mock image provid
 3. As this assignment is made mostly by using html and js no additional packages are required.
 
 # Final Output(How the page looks)
-<img width="414" alt="image" src="https://github.com/info-6150-fall-2023/assignment-7-tirdesh-neu/assets/145165383/56b48112-00cf-4924-93b1-bbd90a095306">
+![image](https://github.com/tirdesh/SimpleCalculator/assets/71664201/20182a8e-0219-4ca5-bac4-e456f8d7d90f)
